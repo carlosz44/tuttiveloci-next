@@ -1,61 +1,50 @@
-import Link from "next/link";
-import { useState } from "react";
-import cn from "classnames";
 import Image from "next/image";
 
 export default function Header() {
-  const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
+  const menuItems = [
+    { id: "1", link: "#nosotros", name: "Nosotros" },
+    { id: "2", link: "#carta", name: "Carta" },
+    { id: "3", link: "#contacto", name: "Contacto" },
+  ];
 
   return (
-    <header className="bg-green-600">
-      <div className="flex flex-wrap items-center justify-between lg:container px-4 py-6 mx-auto md:flex-no-wrap md:px-6">
-        <div className="flex items-center">
-          <Image
-            src="/tailwind-logo.svg"
-            width={40}
-            height={40}
-            priority
-            alt="Tailwind CSS logo"
-          />
-
-          <Link href="/">
-            <a className="text-lg md:text-xl font-bold ml-3 text-white">
-              Next.js Starter Tailwind
-            </a>
-          </Link>
+    <header className="fixed w-full p-1 tutti-transitions ">
+      <div className="main-layout px-8 hidden md:flex items-center justify-between">
+        <div className="flex items-center mr-6">
+          <a href="#inicio">
+            <Image
+              src="/images/logo.png"
+              width={64}
+              height={64}
+              priority
+              alt="Tutti Veloci logo"
+            />
+          </a>
         </div>
-
-        <button
-          className="flex items-center block px-3 py-2 text-white border border-white rounded md:hidden"
-          onClick={() => setMobileMenuIsOpen(!mobileMenuIsOpen)}
-        >
-          <svg
-            className="w-3 h-3 fill-current"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-          </svg>
-        </button>
-
-        <ul
-          className={cn(
-            "md:flex flex-col md:flex-row md:items-center md:justify-center text-sm w-full md:w-auto",
-            mobileMenuIsOpen ? `block` : `hidden`
-          )}
-        >
-          {[
-            { title: "Home", route: "/" },
-            { title: "About", route: "/about" },
-          ].map(({ route, title }) => (
-            <li className="mt-3 md:mt-0 md:ml-6" key={title}>
-              <Link href={route}>
-                <a className="block text-white">{title}</a>
-              </Link>
-            </li>
+        <nav className="flex items-center md:w-auto">
+          {menuItems.map((item) => (
+            <a
+              key={item.id}
+              href={item.link}
+              className="uppercase text-tutti-text tutti-transitions hover:text-tutti-orange ml-16"
+            >
+              {item.name}
+            </a>
           ))}
-        </ul>
+        </nav>
+      </div>
+      <div className="md:hidden max-w-screen-xl mx-auto flex items-center justify-center">
+        <div className="flex items-center">
+          <a href="#inicio">
+            <Image
+              src="/images/logo.png"
+              width={64}
+              height={64}
+              priority
+              alt="Tutti Veloci logo"
+            />
+          </a>
+        </div>
       </div>
     </header>
   );
